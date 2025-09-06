@@ -76,7 +76,7 @@ const Login = () => {
                 className="w-full p-3 border rounded-lg"
                 required
               />
-              <button type="submit" className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600">
+              <button type="submit" className="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600">
                 Verify OTP & Login
               </button>
               <button type="button" onClick={() => setStep(1)} className="w-full text-sm text-gray-500 mt-2">

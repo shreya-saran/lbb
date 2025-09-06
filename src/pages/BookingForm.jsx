@@ -3,9 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { fadeIn } from "../utils/motion";
-
 const stepsTotal = 4;
-
 const BookingForm = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -16,7 +14,6 @@ const BookingForm = () => {
     boys: "",
     weapons: [],
   });
-
   const fightTypes = useMemo(() => ["College", "School", "Office", "Public Place"], []);
   const boyOptions = useMemo(() => [2, 5, 10, 20, 50], []);
   const weaponOptions = useMemo(() => ["Danda", "Rod", "Hockey", "Bat", "Stumps"], []);
@@ -47,26 +44,26 @@ const BookingForm = () => {
     });
   };
 
-  // Fix: prevent form submit when clicking Next button
-  const handleNext = (e) => {
-    e.preventDefault();
+  const handleNext = () => {
     if (validateStep()) setStep((s) => Math.min(stepsTotal, s + 1));
   };
 
   const handleBack = () => setStep((s) => Math.max(1, s - 1));
 
-  // Prevent Enter key submitting before last step
+  // Handle keypress on form to prevent premature submission except at last step
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       if (step < stepsTotal) {
         e.preventDefault();
-        handleNext(e);
-      }
+        handleNext();
+      } 
+      // else allow submit on last step naturally
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Submit only if on last step
     if (step === stepsTotal) {
       localStorage.setItem("bookingData", JSON.stringify(formData));
       navigate("/confirmation");
@@ -201,7 +198,7 @@ const BookingForm = () => {
                     className="space-y-6"
                   >
                     <h2 className="text-xl md:text-2xl font-bold text-gray-900">
-                      Choose Weapons (Legal / Safe Props)
+                      Choose Weapons 
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       {weaponOptions.map((weapon) => (
@@ -217,9 +214,7 @@ const BookingForm = () => {
                         </button>
                       ))}
                     </div>
-                    <p className="text-xs text-gray-500">
-                      *Parody app — real violence is not encouraged. Selected items represent harmless props only.
-                    </p>
+                   
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -229,7 +224,7 @@ const BookingForm = () => {
               {step > 1 ? (
                 <button
                   type="button"
-                  onClick={() => handleBack()}
+                  onClick={handleBack}
                   className="px-6 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800"
                 >
                   Back
@@ -240,7 +235,7 @@ const BookingForm = () => {
               {step < stepsTotal ? (
                 <button
                   type="button"
-                  onClick={(e) => handleNext(e)}
+                  onClick={handleNext}
                   className="px-6 py-2 rounded-lg bg-orange-600 text-white hover:bg-orange-700 shadow"
                 >
                   Next
@@ -260,5 +255,4 @@ const BookingForm = () => {
     </>
   );
 };
-
 export default BookingForm;
