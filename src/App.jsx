@@ -4,7 +4,8 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Booking from "./pages/BookingForm";
-import Confirmation from "./pages/Confirmation"
+import Confirmation from "./pages/Confirmation";
+import BrownDevsBadge from "./components/BrownDevsBadge";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/confirmation" element={<Confirmation />} />
       </Routes>
+      <BrownDevsBadge />
     </Router>
   );
 }
