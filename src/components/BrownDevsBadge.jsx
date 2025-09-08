@@ -29,7 +29,7 @@ const BrownDevsBadge = () => {
         ...data,
         createdAt: serverTimestamp(),
       });
-      alert("✅ Thanks! Your form has been submitted.");
+      alert("Form submitted.");
       setIsOpen(false);
       e.target.reset();
     } catch (error) {
